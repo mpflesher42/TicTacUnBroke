@@ -14,7 +14,7 @@ TURN="HUMAN"  # or "AI"
 #License and file integrity check
 
 FILE1="README.txt"
-FILE2="license"
+FILE2="license.dat"
 
 # Verify both files exist
 if [[ -f "$FILE1" && -f "$FILE2" ]]; then
@@ -48,9 +48,9 @@ print_board() {
   for r in 0 1 2; do
     i=$((r*3))
     printf "  "
-    cell_text $i;        printf " | "
-    cell_text $((i));  printf " | "
-    cell_text $((i+1));  printf "\n"
+    cell_text $((i));        printf " | "
+    cell_text $((i+1));  printf " | "
+    cell_text $((i+2));  printf "\n"
     if [ $r -lt 2 ]; then
       printf " ---+---+---\n"
     fi
@@ -63,7 +63,7 @@ check_winner() {
   local lines=(
     "0 1 2" "3 4 5"
     "0 3 6" "1 4 7" "2 5 8"
-    "0 4 8" "2 4 6"
+    "0 4 8" "2 4 6" "6 7 8"
   )
   local a b c L
   for L in "${lines[@]}"; do
