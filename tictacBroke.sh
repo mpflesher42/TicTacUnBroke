@@ -85,6 +85,7 @@ check_winner() {
 # Depth is used to prefer faster wins (10 - depth) and slower losses (depth - 10).
 minimax() {
   local player="$1" depth="$2" alpha="$3" beta="$4"
+  local MAX_DEPTH=3
   local result
   result=$(check_winner)
   if [ "$result" = "$AI" ]; then
@@ -93,6 +94,12 @@ minimax() {
     printf "%s %s\n" $((depth - 10)) -1; return
   elif [ "$result" = "D" ]; then
     printf "%s %s\n" 0 -1; return
+  fi
+
+  #depth limit
+  if [ "$depth" -ge "$MAX_DEPTH" ]; then
+    printf "%s %s\n" 0 -1
+    return
   fi
 
   local bestScore bestMove score move nextPlayer i
